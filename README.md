@@ -151,3 +151,25 @@ any(): returns true if one element matches the predicate
 none(): returns true if all the elements does not match the predicate
 
 all(): returns true if all the elements match the predicate
+
+# Plus and minus operators
+
+```kotlin
+val numbers = mutableListOf("one", "two", "three")
+val plusList = numbers + "four"
+val minusList = numbers - mutableListOf("three", "two")
+println(plusList)
+// result: [one, two, three, four]
+println(minusList)
+//result: [one]
+```
+
+# Grouping
+
+```kotlin
+val numbers = listOf("one", "two", "three", "four", "five")
+println(numbers.groupBy { it.first().uppercase() })
+//result: {O=[one], T=[two, three], F=[four, five]}
+println(numbers.groupBy(keySelector = {it.first()}, valueTransform = {it.uppercase()} ))
+//result: {O=[ONE], T=[TWO, THREE], F=[FOUR, FIVE]}
+```
