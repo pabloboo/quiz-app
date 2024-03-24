@@ -173,3 +173,63 @@ println(numbers.groupBy { it.first().uppercase() })
 println(numbers.groupBy(keySelector = {it.first()}, valueTransform = {it.uppercase()} ))
 //result: {O=[ONE], T=[TWO, THREE], F=[FOUR, FIVE]}
 ```
+
+# Retrieve Collections parts
+
+```kotlin
+val numbers = listOf("one", "two", "three", "four", "five", "six")
+println(numbers.slice(1..3))
+//result: [two, three, four]
+println(numbers.slice(1..4 step 2))
+//result: [one, three, five]
+println(numbers.slice(setOf(3,5,0)))
+//result: [four, six, one]
+
+println(numbers.take(3))
+//result: [one, two, three]
+println(numbers.takeLast(3))
+//result: [four, five, six]
+println(numbers.drop(1))
+//result: [two, three, four, five, six]
+println(numbers.dropLast(5))
+//result: [one]
+
+println(numbers.takeWhile { !it.startsWith("f") }) //take elements until one element start with "f"
+//result: [one, two, three]
+println(numbers.takeLastWhile { !it != "three" })
+//result: [four, five, six]
+println(numbers.dropWhile { it.length == 3 })
+//result: [three, four, five, six]
+println(numbers.dropLastWhile { !it.contains("i") })
+//result: [one, two, three, four]
+
+val numbersInt = (0..13).toList()
+println(numbersInt.chunked(3))
+//result: [[0, 1, 2], [3, 4, 5], [6, 7, 8], [9, 10, 11], [12, 13]]
+println(numbersInt.chunked(3, { it.sum() }))
+//result: [3, 12, 21, 30, 25]
+
+val numbersString2 = numbers
+println(numbersString2.windowed(3))
+//result: [[one, two, three], [two, three, four], [three, four, five], [four, five, six]]
+```
+
+# Retrieve single elements
+
+```kotlin
+val numbers = listOf("one", "two", "three", "four", "five")
+println(numbers.elementAt(3))
+//result: four
+println(numbers.first())
+//result: one
+println(numbers.last())
+//result: five
+println(numbers.first{ it.length > 3 }) //retrieve first element with greater length than 3
+//result: three
+println(numbers.first{ it.startsWith("f")})
+//result: five
+println(numbers.random())
+//result: RANDOM-ELEMENT
+println(numbers.isEmpty())
+//result: false
+```
