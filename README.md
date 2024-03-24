@@ -92,3 +92,62 @@ Flatten: convert a two dimensional array into a one dimensional array.
 val numbersSets = ListOf(setOf(1,2,3), setOf(4,5,6), setOf(7,8,9))
 val numbersFlatten = numbersSets.flatten()
 ```
+
+# String representation
+
+```kotlin
+val numbersStrings = listOf("one", "two", "three")
+val listString = StringBuffer("The list of numbers: ")
+println(numbersString.joinTo(listString))
+//result: The list of numbers: one, two, three
+println(numbersString.joinToString(separator = " | ", prefix = "start: ", postfix = ": end"))
+
+val numbers = (1..100).toList()
+println(numbers.joinToString(limit = 5, truncated = "<...>"))
+// result: 1, 2, 3, 4, 5, <...>
+
+println(numbersString.joinToString { "Element: ${it.uppercase()}" })
+//result: Element: ONE, Element: TWO, Element: TRHEE
+```
+
+# Filtering
+
+filter retrieves the elements that match with a predicate.
+
+```kotlin
+val numbers = listOf("one", "two", "three")
+val longerThan3 = numbers.filter { it.length > 3 }
+println(longerThan3)
+//result: three
+
+val numbersMap = mapOf("key 1" to 1, "key 2" to 2, "key 3" to 3, "key 101" to 101)
+val filteredMap = numbersMap.filter { it.key.endsWith("1") && it.value > 100 }
+println(filteredMap)
+//result: {key 101=101}
+
+val filteredIndex = numbers.filterIndexed {index, value -> (index != 0) && (value.length < 5)}
+val filteredNot = numbers.filterNot { it.length <= 3 }
+println(filteredIndex)
+//result: [two]
+println(filteredNot)
+//result: [three]
+
+val mixedList = listOf(1,2,3,'A','B','C',"Hello world", false)
+mixedList.filterIsInstance<Char>().forEach { println(it) } //filter by type
+//result: A B C
+
+//partition: keeps the elements that not match in a separate list
+val (match, rest) = numbers.partition { it.length > 3 }
+println(match)
+//result: [three]
+println(rest)
+//result: [one, two]
+```
+
+# Test preifactes:
+
+any(): returns true if one element matches the predicate
+
+none(): returns true if all the elements does not match the predicate
+
+all(): returns true if all the elements match the predicate
