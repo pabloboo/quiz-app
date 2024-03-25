@@ -233,3 +233,64 @@ println(numbers.random())
 println(numbers.isEmpty())
 //result: false
 ```
+
+# Aggregate operations
+
+```kotlin
+val numbers = listOf(6,10,14,4,100)
+println("The sum is ${numbers.sum()}")
+println("The count is ${numbers.count()}")
+println("The average is ${numbers.average()}")
+println("The max value is ${numbers.maxOrNull()}")
+println("The mean is ${numbers.meanOrNull()}")
+println("The sum is ${numbers.sumOf { it * 2 } }") //multiplies the sum by 2
+```
+
+# Comparable and comparator
+
+```kotlin
+data class Laptop(val brand: String, val year: Int, val ram: Int, val price: Int)
+
+val numbers = mutableListOf(2,5,1,40,20,100,60)
+numbers.sorted().forEach { println(it) } //numbers sorted ascending
+//It works because the Int class implements the compareTo function
+
+//Comparator allows you to order by several fields
+//you can do that by inheriting the Comparator in your comparator class and overriding the compare function
+//for example if the comparator class is called ComparatorRam:
+laptops.sortedWith(ComparatorRam().forEach { println(it) })
+
+//Another option is using lambda functions
+laptops.sortedWith(compareBy { it.price }).forEach { println(it) }
+laptops.sortedWith(compareBy { it.ram }).forEach { println(it) }
+laptops.sortBy { it.price }.forEach { println(it) } //shorter form than the previous one
+laptops.sortBy { it.ram }.forEach { println(it) }
+laptops.sortedWith(compareBy<Laptop> {it.year}. thenBy {it.price}).forEach { println(it) }
+```
+
+# Binary search
+
+Binary search is a search algorithm used to find the position of a specific value within a sorted array or list. It works by repeatedly dividing the search interval in half. Here's how binary search works for finding the number 27 in a list of numbers from 1 to 30:
+
+1. **Initialize**: Consider the entire list from 1 to 30.
+2. **Find the middle element**: The middle element of the list is 15 (average of 1 and 30 rounded down).
+3. **Compare**: Compare the middle element (15) with the target value (27).
+    - Since 27 > 15, it means that if 27 exists in the list, it would be on the right half.
+4. **New search interval**: Now, we narrow our search to the right half of the list, which is from 16 to 30.
+5. **Find the new middle element**: The middle element of this new interval is 23.
+6. **Compare**: Compare 23 with 27.
+    - Since 27 > 23, again it means that 27 would be in the right half.
+7. **New search interval**: Narrow our search to the interval from 24 to 30.
+8. **Find the new middle element**: The middle element of this interval is 27.
+9. **Compare**: Compare 27 with the target value (27).
+    - Since they are equal, we have found the target value.
+
+So, binary search successfully finds 27 in the list of numbers from 1 to 30.
+
+The main advantage of binary search is that it's highly efficient, especially for large datasets, as it reduces the search space by half with each comparison, resulting in a time complexity of O(log n), where n is the number of elements in the list. However, it requires that the list be sorted initially.
+
+```kotlin
+numbers.binarySearch(27) //returns the index of the element with the value 27
+```
+
+For using binarySearch the elements must be sorted.
