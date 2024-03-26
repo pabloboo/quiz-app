@@ -294,3 +294,131 @@ numbers.binarySearch(27) //returns the index of the element with the value 27
 ```
 
 For using binarySearch the elements must be sorted.
+
+# Generics
+
+## Type Parameters and Casting
+
+```kotlin
+val numbers = arrayOf<Int>()
+//The generic type is Int
+
+open class Palyer(val name: String)
+class FootbalPlayer(name: String): Player(name)
+class BaseballPlayer(name: String): Player(name)
+class Team<T>(val name: String, val players: MutableList<T>) { //T is a generic type
+	fun addPlayers(player: T) {
+		if (players.contains(player)) {
+			println("Player: ${(player as Player).name} is already in the team ${this.name}") //casting to Player
+		} else {
+			players.add(player)
+			println("Player: ${(player as Player).name} added in the team ${this.name}")
+		}
+	}
+}
+```
+
+## Upper bounds
+
+Upper bounds allows us to restrict what type of type is passed to our generic type.
+
+```kotlin
+class Team<T:Player>(val name: String, val players: MutableList<T>) { //T is a generic type that has to inherit from Player
+	fun addPlayers(player: T) {
+		if (players.contains(player)) {
+			println("Player: ${player.name} is already in the team ${this.name}") //we can now remove the cast
+		} else {
+			players.add(player)
+			println("Player: ${player.name} added in the team ${this.name}")
+		}
+	}
+}
+```
+
+Generics is important so we don’t have to create a new Team class for every player we have.
+
+## Covariance and Contravariance
+
+```kotlin
+class Team<T:Player>(val name: String, val players: MutableList<out T>) { //by putting "out T" we can now specify a list of football players when creating a Team
+	fun addPlayers(player: T) {
+		if (players.contains(player)) {
+			println("Player: ${player.name} is already in the team ${this.name}")
+		} else {
+			players.add(player)
+			println("Player: ${player.name} added in the team ${this.name}")
+		}
+	}
+}
+
+val footballTeam = Team<Player>("Footbal Team", 
+	mutableListOf<FootballPlayer>(FootballPlayer("Player 1"), FootballPlayer("Player 2")) //This is covariance
+	
+//Contravariance is when you want to access supertypes instead of subtypes
+class Team<T:Player>(val name: String, val players: MutableList<in T>) { //by putting "in T" we can now specify a list of supertyes when creating a Team
+	fun addPlayers(player: T) {
+		if (players.contains(player)) {
+			println("Player: ${player.name} is already in the team ${this.name}")
+		} else {
+			players.add(player)
+			println("Player: ${player.name} added in the team ${this.name}")
+		}
+	}
+}
+
+open class GamesPlayer(name: String) : Player(name)
+class CounterStrikePlayer(name:String) : GamesPlayer(name)
+
+val gamesTeam = Team<CounterStrikePlayer> (
+	"Games Team",
+	mutableListOf<GamesPlayer>(GamesPlayer("Player 1"), GamesPlayer("Player 2")) //creating the team with a list of its supertype
+)
+```
+
+## Type Erasure and reifeid keyword
+
+```kotlin
+val list: Any = mutableListOf<String>("Hello", "World")
+if (list is List<String>) //imposible to check in compilation time 
+
+inline fun <reified T> getSpecificTypes(list: List<Any>): List<T> { //reified makes sure that types are not checked on runtime
+	val specificList = mutableList<T>()
+	for (element in list) {
+		if (element is T) {
+			specificList.add(element)
+		}
+	}
+	return specificList
+}
+```
+
+## Where keyword and 2 upper bounds
+
+```kotlin
+//T has 2 upper bounds, it has to inherit from player and implement Listener
+class Team<T>(val name: String, val players: MutableList<in T>) where T: Player, T: Listener {
+	fun addPlayers(player: T) {
+		if (players.contains(player)) {
+			println("Player: ${player.name} is already in the team ${this.name}")
+		} else {
+			players.add(player)
+			println("Player: ${player.name} added in the team ${this.name}")
+		}
+	}
+}
+
+interface Listener {
+	fun listen()
+}
+
+class FootballPlayer(name:String): Player(name), Listener {
+	override fun listen() {
+		
+	}
+}
+
+//2 upper bounds in a function
+fun <T> addPlayer(player: T) where T: Player, T: Listener {
+
+}
+```
