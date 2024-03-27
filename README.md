@@ -462,3 +462,101 @@ try {
 ```
 
 The problem with the previous code is that if you have a print bellow the line that throws the error it won’t show. That’s the reason we have the finally clause at the end.
+
+# Lambda Functions
+
+High order functions: functions that accept parameters, return other functions, etc.
+
+Lambdas: functions without names.
+
+```kotlin
+fun add(a: Int, b: Int) { //Traditional way
+	println("a + b = ${a+b}")
+}
+
+val mylambda = {a: Int, b: Int -> println("a + b = ${a+b}")} //lambda function
+mylambda(5,10)
+
+fun add(a: Int, b: Int, action: (Int)->Unit) { //passing a lambda function as a parameter
+	action(a+b)
+}
+add(5, 10, {a: (Int) -> println(a)})
+```
+
+# Lambdas - it modifier
+
+```kotlin
+fun upperCase(str: String, myFunction: (String) -> String) {
+	val uppercasedWord = myFunction(str)
+	println(uppercaseWord)
+}
+
+upperCase("hello") {it.uppercase()}
+// when you have only one parameter you can remove the input definition and use the it keyword
+// when passing lambdas to a function you can use curly braces instead of inside the parenthesis
+```
+
+# Scope Functions
+
+```kotlin
+class User() {
+	var firstName = ""
+	var lastName = ""
+	var age = -1
+}
+
+val user = User()
+user.firstName = "Pablo"
+user.lastName = "Boo"
+user.age = 24
+
+//with scope function
+with(user) { //"with" scope function to create an User
+	//instead of using user. we use the "this" keyword
+	this.firstName = "Pablo"
+	this.lastName = "Boo"
+	this.age = 24
+	//another form is to ommit the this keyword:
+	firstName = "Pablo"
+	lastName = "Boo"
+	age = 24
+	this //the last line of the code is the returned value, in this case the user
+}
+
+//apply scope function
+val user = User().apply { //similar to with but the returned value is the object created and it is applied to the class
+	firstName = "Pablo"
+	lastName = "Boo"
+	age = 24
+}
+
+with(user) {
+	println(firstName)
+	println(lastName)
+	println(age)
+}
+
+//also scope function: do another operation
+class User(val firstName: String, val lastName: String, val age: Int)
+User("Pablo","Boo",24).also{ //the returned value of also is the object created
+	println(it)
+}
+
+//let scope function: it is usually used to avoid null pointer exception
+val text: String) = null
+text?.let { //execute this code only if the variable is not null
+	println(text)
+}
+//the return value of the let scope function is the last line of the function
+//? is the safe type operator
+
+//run scope function: combination of with and let functions
+val user: User? = null
+
+user?.run { //combination of let and with
+	println(userName)
+	println(lastName)
+	println(age)
+}
+//the return value of the let scope function is the last line of the function
+```
