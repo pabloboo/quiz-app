@@ -422,3 +422,43 @@ fun <T> addPlayer(player: T) where T: Player, T: Listener {
 
 }
 ```
+
+# Access modifiers
+
+Speficify how other parts of your code or other people can access your code.
+
+public (by default): allow all to access your code.
+
+private: can only be used in the same file.
+
+protected: you can only use it inside classes (not on the whole class itself). With protected you can use it inside a class you are inheriting but not outside the class.
+
+# Packages and imports
+
+Packages: folders where you put related code.
+
+Right click on a folder → new package > the naming is com.example.[name]
+
+To import a class you can right click on the code that is giving you an error and import the class or type ‘import [package]’.
+
+To import all the classes from a file you can type ‘import com.example.[name].*’.
+
+Orginizing our code in packages increases code reusability and also helps other programmers to locate what they need.
+
+# Exceptions - Try Catch, Finally
+
+Exceptions: error that happen during the execution of your code.
+
+You can surround the code that might throw an expection with a try-catch block.
+
+```kotlin
+try {
+	println(a/b)
+} catch (e: ArithmeticException) {
+	println("You can't divide by zero ${e.message}")
+} finally {
+	//code that runs whether or not the try executes correctly
+}
+```
+
+The problem with the previous code is that if you have a print bellow the line that throws the error it won’t show. That’s the reason we have the finally clause at the end.
