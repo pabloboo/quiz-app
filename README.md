@@ -560,3 +560,51 @@ user?.run { //combination of let and with
 }
 //the return value of the let scope function is the last line of the function
 ```
+
+# Download Android Studio
+
+https://developer.android.com/studio?hl=es-419
+
+https://developer.android.com/codelabs/basic-android-kotlin-compose-install-android-studio?hl=es-419#0
+
+# Android Studio Presentation
+
+New Project → Empty activity (choose another one if by chosing this one the “layout” folder is not created) → Language Kotlin → Finish
+
+MainActivity.kt → logic
+
+activity_main.xml → UI components. In this xml you can drag and drop elements to the UI (in the design view).
+
+For example if you put a text in the center you have to constraint it to make it stick to the center of the page. To constraint it you have to select it and on the horizontal and vertical points grab them and make a line to all limits of the page.
+
+You can create the UI elements on the preview or on the xml code.
+
+Create a virtual phone on the top menu → devices → create device → click on the run button to start the virtual device.
+
+# Android File Structure
+
+manifests/ → AndroidManifest.xml 
+
+java/ → we have a package for testing and a package with the Main Activity.
+
+res/ → in the drawable folder we will have our images. in the layout folder is where we have what our user will see. In the mipmap folder we have the icon of the app. In the values folder we have the colors and strings for the app. In the themes folder we can define the theme for the whole app.
+
+We also have the Gradle Scripts folder.
+
+# Android XML and Design
+
+The kotlin code interacts with the resources (the java folder interacts with the res folder).
+
+In the design view of an xml file we can create views by dragging and droping elements to the page.
+
+To constraint a new button: if you have a text view on the center of your page, if you want to create a button above it you can create the button and do the same constraint process as the text view mentioned above but, in the top down arrow, instread of drawing the arrow to the end of the page, you have to draw it until it touches the top point of the text view created (draw a line from the botton circle of the button to the top circle of the text view as shown in the image bellow).
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/e408529d-0a93-4f34-bdfc-ba969f51bf80/e31f4928-2143-4ad6-9458-9eaadcab3264/Untitled.png)
+
+If you select an element in the right screen you can change its properties. For example you can change the layout_with and layout_height. 
+
+On layout width wrap_content means that it will big as big as the content needs and match_parent means it will be as big as the parent of the element.
+
+You can achieve the same thing going to the “Code” display. There you have the same information but with xml code.
+
+Jetpack compose: elmininates completely the xml and the design and we can create the ui components directly from the code. We will look at that in a future chapter.
