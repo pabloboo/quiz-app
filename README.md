@@ -599,7 +599,7 @@ In the design view of an xml file we can create views by dragging and droping el
 
 To constraint a new button: if you have a text view on the center of your page, if you want to create a button above it you can create the button and do the same constraint process as the text view mentioned above but, in the top down arrow, instread of drawing the arrow to the end of the page, you have to draw it until it touches the top point of the text view created (draw a line from the botton circle of the button to the top circle of the text view as shown in the image bellow).
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/e408529d-0a93-4f34-bdfc-ba969f51bf80/e31f4928-2143-4ad6-9458-9eaadcab3264/Untitled.png)
+![Constraining new button](images/course_screenshot_1.png)
 
 If you select an element in the right screen you can change its properties. For example you can change the layout_with and layout_height. 
 
@@ -608,3 +608,106 @@ On layout width wrap_content means that it will big as big as the content needs 
 You can achieve the same thing going to the “Code” display. There you have the same information but with xml code.
 
 Jetpack compose: elmininates completely the xml and the design and we can create the ui components directly from the code. We will look at that in a future chapter.
+
+# Android XML properties
+
+If you select an element in design, on the right you can search for a property like ‘textColor’ where you can change the color of the element.
+
+To use a color from the colors.xml file you can type for example:
+
+```xml
+android:background="@color/purple_200"
+```
+
+This property must be used in an xml element and there must be a purple_200 color created in colors.xml
+
+# findViewById()
+
+```kotlin
+class MainActivity : AppCompatActivity() {
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContentView(R.layout.activity_main)
+  }
+}
+```
+
+R.layout is used to connect the code with the layout.
+
+To connect an element in xml to an object in a .kt file (activity file) we have to give the xml object an id.
+
+Then using the findViewById function we can search for that element by id.
+
+```kotlin
+private button: Button = findViewById(R.id.button)
+```
+
+# String XML
+
+In the strings.xml file you should have defined all the strings used in your app.
+
+```kotlin
+<string name="button_text">Login button</string>
+
+button.text = getString(R.string.button_text)
+```
+
+# Android Manifest
+
+manifests/AndroidManifest.xml → file to define the structure of our application. Define what the app can and can’t do.
+
+For example in this file we have defined the Main activity of the app, the theme, the icon, the app name, etc.
+
+In manifest we can also ask for permissions (access internet connections, camera, etc.)
+
+```kotlin
+<uses-permission android:name="android.permissions.ACCESS_NOTIFICATION_POLICY"/>
+```
+
+You will also have to write some code.
+
+# Android Button and TextView
+
+You can change all its properties in the right part of the design view or in the xml code.
+
+# Android button OnClickListener
+
+To handle button clicks we have to go to the onClick property of the xml button and define the name of the function that is going to be called.
+
+```kotlin
+fun showMessage(view: View) { //you have to pass the view so the app doesn't crash
+	myTextView.visibility = View.VISIBLE
+	myTextView.text = "Hello Pablo"
+}
+```
+
+There is other way to handle clicks.
+
+The function onClickListener is used to handle clicks on a button.
+
+```kotlin
+myButton.setOnClickListener { //lambda function to define how to handle clicks of the button
+	myTextView.visibility = View.VISIBLE
+	myTextView.text = getString(R.string.text_view_text)
+}
+```
+
+The second way is the more recommendable way of doing it.
+
+# Android EditText
+
+To add an EditText element you can go to the xml Design and drag and drop a Text→Plain Text element.
+
+Then you constraint it and put it where you want.
+
+hint property: help for the user to know what you are expecting him to write.
+
+```kotlin
+private lateinit var editText: EditText
+editText = findViewById(R.id.editText)
+val input = editText.text.toString()
+```
+
+Code example for getting an input text and showing it in the screen if it is not empty:
+
+![input text example](images/course_screenshot_2.png)
