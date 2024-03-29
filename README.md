@@ -711,3 +711,33 @@ val input = editText.text.toString()
 Code example for getting an input text and showing it in the screen if it is not empty:
 
 ![input text example](images/course_screenshot_2.png)
+
+# Android App - Convert Inches
+
+Android app for converting inches to centimeters.
+
+You can import an image going to the left panel, clicking on “Resource manager” and importing a drawable. The image will be placed inside the res/drawable folder.
+
+If you can’t constraint an element with another element you might constraint it to the margins and then place it where you want.
+
+Android convert inches app ui before implementing the logic:
+
+![UI convert inches](images/course_screenshot_3.png)
+
+In the editText you can change the android:inputType property to “number” if you only want the user to input numbers in that field.
+
+Logic of the Convert Inches app:
+
+![Logic convert inches](images/course_screenshot_4.png)
+
+# Android App Change Color
+
+This app will have a button that, when clicked, will change the background of the view.
+
+The constraint layout is also a view so you can give it an id to change its color.
+
+In order to make the button change the background to a random color we have to create an array of colors.
+
+Logic of the Change Color app:
+
+![Logic change color](images/course_screenshot_5.png)
