@@ -757,3 +757,29 @@ Android Radio Buttons App XML:
 Android Radio Buttons App Code:
 
 ![Radio Buttons Code](images/course_screenshot_7.png)
+
+# Android SeekBar
+
+SeekBar allows us to use our finger to drag left and right to set the progress.
+
+seekBar.setOnSeekBarChangeListener → list to changes on the seekBar.
+
+In the function onProgressChanged we can access the value of the progress bar using the property seekBar.progress.
+
+SeekBar UI:
+
+![SeekBar UI](images/course_screenshot_8.png)
+
+SeekBar code:
+
+![SeekBar Code](images/course_screenshot_9.png)
+
+# Android Toggle Button
+
+A Toggle Button allows you to check between two states (on and off).
+
+The function setOnCheckedChangeListener allows us to listen to changes in the toggle button.
+
+Toggle Button Code:
+
+![SeekBar Code](images/course_screenshot_10.png)
