@@ -741,3 +741,19 @@ In order to make the button change the background to a random color we have to c
 Logic of the Change Color app:
 
 ![Logic change color](images/course_screenshot_5.png)
+
+# Android Radio Buttons
+
+Radio buttons are buttons that allow you to turn it on or off.
+
+To listen to clicks on a radioGroup you have to use the setOnCheckedChangeListener function.
+
+Toast: class to display text in the app. The text will appear on the screen for a given time.
+
+Android Radio Buttons App XML:
+
+![Radio Buttons UI](images/course_screenshot_6.png)
+
+Android Radio Buttons App Code:
+
+![Radio Buttons Code](images/course_screenshot_7.png)
