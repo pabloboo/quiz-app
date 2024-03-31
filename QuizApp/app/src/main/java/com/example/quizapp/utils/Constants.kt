@@ -76,7 +76,7 @@ object Constants {
             "Germany",
             "Switzerland",
             "Netherlands",
-            1
+            2
         )
         questions.add(questGermany)
 
@@ -100,7 +100,7 @@ object Constants {
             "France",
             "Italy",
             "Luxembourg",
-            1
+            2
         )
         questions.add(questFrance)
 
@@ -115,6 +115,18 @@ object Constants {
             4
         )
         questions.add(questFinland)
+
+        val questGalician2 = Question(
+            10,
+            "What region does this flag belong?",
+            R.drawable.galician_flag,
+            "Not Galicia",
+            "Not Galicia",
+            "Galicia",
+            "Not Galicia",
+            3
+        )
+        questions.add(questGalician2)
 
         return questions
     }
