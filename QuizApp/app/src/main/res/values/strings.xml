@@ -48,4 +48,8 @@
     <string name="name">Name</string>
     <string name="image_flag">Image flag</string>
     <string name="check">Check</string>
+    <string name="result">Result</string>
+    <string name="congratulations">Hey, Congratulations!</string>
+    <string name="username">Username</string>
+    <string name="finish">Finish</string>
 </resources>
