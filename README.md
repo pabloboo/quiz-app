@@ -4,6 +4,12 @@ Kotlin freecodecamp course on building a quiz application
 Course:
 https://www.youtube.com/watch?v=kNghEbknLs8&ab_channel=freeCodeCamp.org
 
+# Video demo
+
+https://github.com/pabloboo/quiz-app/assets/29493377/6146fc15-46b2-41f6-8d8c-a58cfa2a6734
+
+
+
 # List, Set, Map
 
 Collections: group of objects in a single variable.
