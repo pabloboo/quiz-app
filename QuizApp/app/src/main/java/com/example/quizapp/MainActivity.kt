@@ -15,6 +15,7 @@ import android.widget.EditText
 import android.widget.Toast
 import com.example.quizapp.databinding.ActivityMainBinding
 import com.example.quizapp.ui.QuestionsActivity
+import com.example.quizapp.utils.Constants
 
 class MainActivity : AppCompatActivity() {
 
@@ -31,6 +32,7 @@ class MainActivity : AppCompatActivity() {
             if (editTextName.text.isNotEmpty()) {
                 //Go from Main to Questions Activity
                 Intent(this@MainActivity, QuestionsActivity::class.java).also {
+                    it.putExtra(Constants.USER_NAME, editTextName.text.toString())
                     startActivity(it)
                     finish() //Take out the previous activity
                 }

@@ -1,5 +1,6 @@
 package com.example.quizapp.ui
 
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
@@ -33,6 +34,9 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
     private var selectedAnswer = 0
     private lateinit var currentQuestion: Question
     private var answered = false
+
+    private lateinit var name: String
+    private var score = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_questions)
@@ -57,29 +61,40 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
         Log.d("QuestionSize", "${questionsList.size}")
 
         showNextQuestion()
+
+        if (intent.hasExtra(Constants.USER_NAME)) {
+            name = intent.getStringExtra(Constants.USER_NAME).toString()
+        }
     }
 
     private fun showNextQuestion() {
-        val question = questionsList[questionsCounter - 1]
-        flagImage.setImageResource(question.image)
-        progressBar.progress = questionsCounter
-        textViewProgress.text = "$questionsCounter/${progressBar.max}"
-        textViewQuestion.text = question.question
-        textViewOption1.text = question.optionOne
-        textViewOption2.text = question.optionTwo
-        textViewOption3.text = question.optionThree
-        textViewOption4.text = question.optionFour
 
         if (questionsCounter < questionsList.size+1) {
             checkButton.text = "Check"
+
+            resetOptions()
+            val question = questionsList[questionsCounter - 1]
+            flagImage.setImageResource(question.image)
+            progressBar.progress = questionsCounter
+            textViewProgress.text = "$questionsCounter/${progressBar.max}"
+            textViewQuestion.text = question.question
+            textViewOption1.text = question.optionOne
+            textViewOption2.text = question.optionTwo
+            textViewOption3.text = question.optionThree
+            textViewOption4.text = question.optionFour
             currentQuestion = question
         } else {
             checkButton.text = "Finish"
+            Intent(this, ResultActivity::class.java).also {
+                it.putExtra(Constants.USER_NAME, name)
+                it.putExtra(Constants.SCORE, score)
+                it.putExtra(Constants.TOTAL_QUESTIONS, questionsList.size)
+                startActivity(it)
+            }
         }
 
         questionsCounter++
         answered = false
-        resetOptions()
     }
 
     private fun resetOptions() {
@@ -113,78 +128,14 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun showSolution() {
         selectedAnswer = currentQuestion.correctAnswer
-
-        when (selectedAnswer) {
-            1 -> {
-                textViewOption1.background =
-                    ContextCompat.getDrawable(
-                        this,
-                        R.drawable.correct_option_border_bg
-                    )
-            }
-
-            2 -> {
-                textViewOption2.background =
-                    ContextCompat.getDrawable(
-                        this,
-                        R.drawable.correct_option_border_bg
-                    )
-            }
-
-            3 -> {
-                textViewOption3.background =
-                    ContextCompat.getDrawable(
-                        this,
-                        R.drawable.correct_option_border_bg
-                    )
-            }
-
-            4 -> {
-                textViewOption4.background =
-                    ContextCompat.getDrawable(
-                        this,
-                        R.drawable.correct_option_border_bg
-                    )
-            }
-        }
+        highlightAnswer(selectedAnswer)
     }
 
     private fun checkAnswer() {
         answered = true
         if (selectedAnswer == currentQuestion.correctAnswer) {
-            when (selectedAnswer) {
-                1 -> {
-                    textViewOption1.background =
-                        ContextCompat.getDrawable(
-                            this,
-                            R.drawable.correct_option_border_bg
-                        )
-                }
-
-                2 -> {
-                    textViewOption2.background =
-                        ContextCompat.getDrawable(
-                            this,
-                            R.drawable.correct_option_border_bg
-                        )
-                }
-
-                3 -> {
-                    textViewOption3.background =
-                        ContextCompat.getDrawable(
-                            this,
-                            R.drawable.correct_option_border_bg
-                        )
-                }
-
-                4 -> {
-                    textViewOption4.background =
-                        ContextCompat.getDrawable(
-                            this,
-                            R.drawable.correct_option_border_bg
-                        )
-                }
-            }
+            score++
+            highlightAnswer(selectedAnswer)
         } else {
             when (selectedAnswer) {
                 1 -> {
@@ -249,6 +200,42 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
                     showNextQuestion()
                 }
                 selectedAnswer = 0
+            }
+        }
+    }
+
+    private fun highlightAnswer(answer: Int) {
+        when (answer) {
+            1 -> {
+                textViewOption1.background =
+                    ContextCompat.getDrawable(
+                        this,
+                        R.drawable.correct_option_border_bg
+                    )
+            }
+
+            2 -> {
+                textViewOption2.background =
+                    ContextCompat.getDrawable(
+                        this,
+                        R.drawable.correct_option_border_bg
+                    )
+            }
+
+            3 -> {
+                textViewOption3.background =
+                    ContextCompat.getDrawable(
+                        this,
+                        R.drawable.correct_option_border_bg
+                    )
+            }
+
+            4 -> {
+                textViewOption4.background =
+                    ContextCompat.getDrawable(
+                        this,
+                        R.drawable.correct_option_border_bg
+                    )
             }
         }
     }
